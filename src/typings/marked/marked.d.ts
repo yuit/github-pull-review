@@ -8,6 +8,8 @@ interface RendererConstructor {
     new (): Renderer;
 }
 
+declare var Renderer: RendererConstructor;
+
 interface Renderer {
     code(code: any, lang: any, escaped: any): any;
     blockquote(quote: any): any;
@@ -30,8 +32,7 @@ interface Renderer {
     text(text: any): any;
 }
 
-declare namespace __Marked {
-    interface marked {
+interface MarkedStatic {
         /**
          * Compiles markdown to HTML.
          *
@@ -50,14 +51,13 @@ declare namespace __Marked {
          * @return String of compiled HTML
          */
         (src: string, options?: MarkedOptions, callback?: Function): string;
-    }
 
     
     /**
      * @param src String of markdown source to be compiled
      * @param options Hash of options
      */
-    function lexer(src: string, options?: MarkedOptions): any[];
+   lexer(src: string, options?: MarkedOptions): any[];
 
     /**
      * Compiles markdown to HTML.
@@ -66,7 +66,7 @@ declare namespace __Marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: Function): string;
+    parse(src: string, callback: Function): string;
 
     /**
      * Compiles markdown to HTML.
@@ -76,20 +76,21 @@ declare namespace __Marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options?: MarkedOptions, callback?: Function): string;
+   parse(src: string, options?: MarkedOptions, callback?: Function): string;
 
     /**
      * @param options Hash of options
      */
-    function parser(src: any[], options?: MarkedOptions): string;
+  parser(src: any[], options?: MarkedOptions): string;
 
     /**
      * Sets the default options.
      *
      * @param options Hash of options
      */
-    function setOptions(options: MarkedOptions): marked;
-    var Renderer: RendererConstructor;
+    setOptions(options: MarkedOptions): MarkedStatic;
+    
+    Renderer: Renderer;
 }
 
 interface MarkedOptions {
@@ -152,6 +153,5 @@ interface MarkedOptions {
 }
 
 declare module "marked" {
-    export = __Marked;
+    export = MarkedStatic;
 }
-
