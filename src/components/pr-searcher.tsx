@@ -21,7 +21,7 @@ interface PrSearcherProp {
     onUpdateToken(value: any): void;
 }
 
-class PrSearcher extends React.Component<PrSearcherProp, PrSearcherState> {
+export class PrSearcher extends React.Component<PrSearcherProp, PrSearcherState> {
     constructor(props) {
         super(props);
         this.state = {
